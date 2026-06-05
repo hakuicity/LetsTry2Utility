@@ -172,13 +172,13 @@
     .word-chip:hover { border-color: #1565C0; background: var(--accent2); }
     .word-chip.used { opacity: 0.3; cursor: default; pointer-events: none; }
     .answer-row { display: flex; flex-wrap: wrap; gap: 8px; min-height: 44px; padding: 8px; background: var(--surface); border: 2px dashed var(--border); border-radius: 10px; margin-bottom: 10px; align-items: center; }
+    .answer-row[data-empty="true"]::before { content: "単語をタップして並べよう"; color: var(--text3); font-size: 14px; font-style: italic; }
     .answer-chip {
       padding: 8px 14px; border-radius: 8px; border: 2px solid #1565C0;
       background: var(--accent2); cursor: pointer; font-size: 15px; font-weight: 600;
       color: var(--text); font-family: inherit;
     }
     .answer-chip:hover { background: #BBDEFB; }
-    .answer-placeholder { color: var(--text3); font-size: 14px; font-style: italic; }
 
     /* ── Primary / action btns ── */
     .primary-btn {
@@ -400,9 +400,7 @@
       <div class="q-text" id="build-jp" style="font-size:16px;"></div>
     </div>
 
-    <div class="answer-row" id="build-answer">
-      <span class="answer-placeholder" id="build-placeholder">単語をタップして並べよう</span>
-    </div>
+    <div class="answer-row" id="build-answer" data-empty="true"></div>
 
     <div class="word-bank" id="build-bank"></div>
 
@@ -465,10 +463,10 @@ const UNITS = [
       { en:"No, I don't", jp:"いいえ、好きではありません", emoji:"❌", hint:"好きでないと答える" },
     ],
     sentences: [
-      { jp:"こんにちは！私はクリスです。", words:["Hello", "I'm", "Chris", "!"], hint:"Helloで始めて、I'mで名前を言おう" },
-      { jp:"いちごが好きです。", words:["I", "like", "strawberries", "."], hint:"I likeのあとに好きなものを言う" },
-      { jp:"サッカーは好きですか？", words:["Do", "you", "like", "soccer", "?"], hint:"Do you like ~?で質問する" },
-      { jp:"おはようございます、グラハム先生。", words:["Good", "morning", ",", "Graham", "sensei", "."], hint:"Goodのあとに時間帯を言う" },
+      { jp:"こんにちは！私はクリスです。", words:["Hello", "I'm", "Chris"], hint:"Helloで始めて、I'mで名前を言おう" },
+      { jp:"いちごが好きです。", words:["I", "like", "strawberries"], hint:"I likeのあとに好きなものを言う" },
+      { jp:"サッカーは好きですか？", words:["Do", "you", "like", "soccer"], hint:"Do you like ~?で質問する" },
+      { jp:"おはようございます、グラハム先生。", words:["Good", "morning", "Graham", "sensei"], hint:"Goodのあとに時間帯を言う" },
     ],
     matchPairs: [
       ["Hello","こんにちは"],["Good morning","おはようございます"],["Good night","おやすみなさい"],
@@ -495,10 +493,10 @@ const UNITS = [
       { en:"Sorry", jp:"ごめんなさい", emoji:"😅", hint:"断る時の一言" },
     ],
     sentences: [
-      { jp:"天気はどうですか？", words:["How's", "the", "weather", "?"], hint:"How'sで始める天気の質問" },
-      { jp:"晴れています。", words:["It's", "sunny", "."], hint:"It'sのあとに天気を言う" },
-      { jp:"トランプをしよう。", words:["Let's", "play", "cards", "."], hint:"Let's play ~で遊びに誘う" },
-      { jp:"外でドッジボールをしよう。", words:["Let's", "go", "outside", "and", "play", "dodgeball", "."], hint:"Let's go outside andのあとに遊びを言う" },
+      { jp:"天気はどうですか？", words:["How's", "the", "weather"], hint:"How'sで始める天気の質問" },
+      { jp:"晴れています。", words:["It's", "sunny"], hint:"It'sのあとに天気を言う" },
+      { jp:"トランプをしよう。", words:["Let's", "play", "cards"], hint:"Let's play ~で遊びに誘う" },
+      { jp:"外でドッジボールをしよう。", words:["Let's", "go", "outside", "and", "play", "dodgeball"], hint:"Let's go outside andのあとに遊びを言う" },
     ],
     matchPairs: [
       ["sunny","☀️ 晴れ"],["rainy","🌧️ 雨"],["cloudy","☁️ 曇り"],["snowy","❄️ 雪"],
@@ -525,10 +523,10 @@ const UNITS = [
       { en:"soup", jp:"スープ", emoji:"🍲", hint:"火曜日の食べ物チャント" },
     ],
     sentences: [
-      { jp:"今日は何曜日ですか？", words:["What", "day", "is", "it", "?"], hint:"What dayで始める" },
-      { jp:"今日は月曜日です。", words:["It's", "Monday", "."], hint:"It'sのあとに曜日を言う" },
-      { jp:"月曜日が好きです。", words:["I", "like", "Mondays", "."], hint:"I likeで好きな曜日を言う" },
-      { jp:"月曜日に友達と遊びます。", words:["I", "play", "with", "my", "friends", "on", "Mondays", "."], hint:"I … on ~で曜日にすることを言う" },
+      { jp:"今日は何曜日ですか？", words:["What", "day", "is", "it"], hint:"What dayで始める" },
+      { jp:"今日は月曜日です。", words:["It's", "Monday"], hint:"It'sのあとに曜日を言う" },
+      { jp:"月曜日が好きです。", words:["I", "like", "Mondays"], hint:"I likeで好きな曜日を言う" },
+      { jp:"月曜日に友達と遊びます。", words:["I", "play", "with", "my", "friends", "on", "Mondays"], hint:"I … on ~で曜日にすることを言う" },
     ],
     matchPairs: [
       ["Monday","月曜日"],["Tuesday","火曜日"],["Wednesday","水曜日"],
@@ -555,10 +553,10 @@ const UNITS = [
       { en:"Bed Time", jp:"寝る時間", emoji:"🌙", hint:"夜の活動" },
     ],
     sentences: [
-      { jp:"今何時ですか？", words:["What", "time", "is", "it", "?"], hint:"What timeで始める" },
-      { jp:"午前7時です。起きる時間です。", words:["It's", "7", "a.m.", "It's", "Wake-up", "Time", "."], hint:"It'sを2回使う" },
-      { jp:"昼ごはんの時間です。", words:["It's", "Lunch", "Time", "."], hint:"It'sのあとに時間の名前を言う" },
-      { jp:"午後9時です。寝る時間です。", words:["It's", "9", "p.m.", "It's", "Bed", "Time", "."], hint:"p.m.は午後を表す" },
+      { jp:"今何時ですか？", words:["What", "time", "is", "it"], hint:"What timeで始める" },
+      { jp:"午前7時です。起きる時間です。", words:["It's", "7", "a.m.", "It's", "Wake-up", "Time"], hint:"It'sを2回使う" },
+      { jp:"昼ごはんの時間です。", words:["It's", "Lunch", "Time"], hint:"It'sのあとに時間の名前を言う" },
+      { jp:"午後9時です。寝る時間です。", words:["It's", "9", "p.m.", "It's", "Bed", "Time"], hint:"p.m.は午後を表す" },
     ],
     matchPairs: [
       ["Wake-up Time","起きる時間 ⏰"],["Breakfast Time","朝ごはん 🍳"],["Lunch Time","昼ごはん 🍱"],
@@ -586,10 +584,10 @@ const UNITS = [
       { en:"No, I don't", jp:"いいえ、持っていません", emoji:"❌", hint:"Yes/Noの答え" },
     ],
     sentences: [
-      { jp:"ペンを持っていますか？", words:["Do", "you", "have", "a", "pen", "?"], hint:"Do you have a ~?で持っているか聞く" },
-      { jp:"はい、持っています。", words:["Yes", ",", "I", "do", "."], hint:"Yes, I do. で答える" },
-      { jp:"消しゴムを持っていますか？", words:["Do", "you", "have", "an", "eraser", "?"], hint:"母音の前はanを使う" },
-      { jp:"えんぴつを持っています。", words:["I", "have", "a", "pencil", "."], hint:"I have a ~で持ち物を言う" },
+      { jp:"ペンを持っていますか？", words:["Do", "you", "have", "a", "pen"], hint:"Do you have a ~?で持っているか聞く" },
+      { jp:"はい、持っています。", words:["Yes", "I", "do"], hint:"Yes, I do. で答える" },
+      { jp:"消しゴムを持っていますか？", words:["Do", "you", "have", "an", "eraser"], hint:"母音の前はanを使う" },
+      { jp:"えんぴつを持っています。", words:["I", "have", "a", "pencil"], hint:"I have a ~で持ち物を言う" },
     ],
     matchPairs: [
       ["pen","ペン ✏️"],["eraser","消しゴム"],["ruler","定規"],
@@ -616,10 +614,10 @@ const UNITS = [
       { en:"taxi", jp:"タクシー", emoji:"🚕", hint:"街で見かける乗り物" },
     ],
     sentences: [
-      { jp:"あれは何ですか？", words:["What", "is", "that", "?"], hint:"What isで始める" },
-      { jp:"何文字ありますか？", words:["How", "many", "letters", "?"], hint:"How manyで数を聞く" },
-      { jp:"6文字あります。", words:["Six", "letters", "."], hint:"数字のあとにlettersを置く" },
-      { jp:"本屋さんへ行きましょう。", words:["Let's", "go", "to", "the", "bookstore", "."], hint:"Let's go to ~で行き先を言う" },
+      { jp:"あれは何ですか？", words:["What", "is", "that"], hint:"What isで始める" },
+      { jp:"何文字ありますか？", words:["How", "many", "letters"], hint:"How manyで数を聞く" },
+      { jp:"6文字あります。", words:["Six", "letters"], hint:"数字のあとにlettersを置く" },
+      { jp:"本屋さんへ行きましょう。", words:["Let's", "go", "to", "the", "bookstore"], hint:"Let's go to ~で行き先を言う" },
     ],
     matchPairs: [
       ["A","Apple 🍎"],["B","Book 📚"],["C","Cat 🐱"],["D","Dog 🐶"],["E","Elephant 🐘"],["P","Police 👮"],
@@ -645,10 +643,10 @@ const UNITS = [
       { en:"Two, please", jp:"2個ください", emoji:"✌️", hint:"数を言って頼む" },
     ],
     sentences: [
-      { jp:"何が欲しいですか？", words:["What", "do", "you", "want", "?"], hint:"What do you want?で欲しいものを聞く" },
-      { jp:"じゃがいもが欲しいです。", words:["I", "want", "potatoes", ",", "please", "."], hint:"I want ~, pleaseで丁寧に頼む" },
-      { jp:"何個ですか？", words:["How", "many", "?"], hint:"How many?で数を聞く" },
-      { jp:"3個ください。", words:["Three", ",", "please", "."], hint:"数字のあとにpleaseを付ける" },
+      { jp:"何が欲しいですか？", words:["What", "do", "you", "want"], hint:"What do you want?で欲しいものを聞く" },
+      { jp:"じゃがいもが欲しいです。", words:["I", "want", "potatoes", "please"], hint:"I want ~, pleaseで丁寧に頼む" },
+      { jp:"何個ですか？", words:["How", "many"], hint:"How many?で数を聞く" },
+      { jp:"3個ください。", words:["Three", "please"], hint:"数字のあとにpleaseを付ける" },
     ],
     matchPairs: [
       ["tomato","トマト 🍅"],["potato","じゃがいも 🥔"],["corn","とうもろこし 🌽"],
@@ -675,10 +673,10 @@ const UNITS = [
       { en:"This is my favorite place", jp:"ここが私のお気に入りの場所です", emoji:"⭐", hint:"お気に入りを紹介する" },
     ],
     sentences: [
-      { jp:"まっすぐ行ってください。", words:["Go", "straight", "."], hint:"Goで始める道案内" },
-      { jp:"右に曲がってください。", words:["Turn", "right", "."], hint:"Turnのあとに方向を言う" },
-      { jp:"ここが音楽室です。", words:["This", "is", "the", "music", "room", "."], hint:"This is ~で場所を紹介する" },
-      { jp:"ここが私のお気に入りの場所です。", words:["This", "is", "my", "favorite", "place", "."], hint:"This is my favorite ~で言う" },
+      { jp:"まっすぐ行ってください。", words:["Go", "straight"], hint:"Goで始める道案内" },
+      { jp:"右に曲がってください。", words:["Turn", "right"], hint:"Turnのあとに方向を言う" },
+      { jp:"ここが音楽室です。", words:["This", "is", "the", "music", "room"], hint:"This is ~で場所を紹介する" },
+      { jp:"ここが私のお気に入りの場所です。", words:["This", "is", "my", "favorite", "place"], hint:"This is my favorite ~で言う" },
     ],
     matchPairs: [
       ["gym","体育館 🏋️"],["library","図書室 📚"],["science room","理科室 🔬"],
@@ -705,10 +703,10 @@ const UNITS = [
       { en:"wonderful", jp:"すばらしい", emoji:"✨", hint:"感想を表す言葉" },
     ],
     sentences: [
-      { jp:"私は6時に起きます。", words:["I", "wake", "up", "at", "6:00", "."], hint:"I wake up at ~で時間と一緒に言う" },
-      { jp:"顔を洗って歯をみがきます。", words:["I", "wash", "my", "face", ".", "I", "brush", "my", "teeth", "."], hint:"I + 動詞で活動を言う" },
-      { jp:"学校に行きます。", words:["I", "go", "to", "school", "."], hint:"I go to ~で行き先を言う" },
-      { jp:"これが私の一日です。", words:["This", "is", "my", "day", "."], hint:"This is my ~で発表する" },
+      { jp:"私は6時に起きます。", words:["I", "wake", "up", "at", "6:00"], hint:"I wake up at ~で時間と一緒に言う" },
+      { jp:"顔を洗います。", words:["I", "wash", "my", "face"], hint:"I + 動詞で活動を言う" },
+      { jp:"学校に行きます。", words:["I", "go", "to", "school"], hint:"I go to ~で行き先を言う" },
+      { jp:"これが私の一日です。", words:["This", "is", "my", "day"], hint:"This is my ~で発表する" },
     ],
     matchPairs: [
       ["wake up","起きる ⏰"],["wash my face","顔を洗う 🚿"],["brush my teeth","歯をみがく 🦷"],
@@ -1097,10 +1095,12 @@ function renderBuildQ() {
 function renderBuildBankAndAnswer(item) {
   const bankEl = document.getElementById("build-bank");
   const answerEl = document.getElementById("build-answer");
-  const placeholder = document.getElementById("build-placeholder");
 
   bankEl.innerHTML = "";
   answerEl.innerHTML = "";
+
+  // Show placeholder text via data attribute + CSS instead of moving a DOM node
+  answerEl.dataset.empty = buildAnswer.length === 0 ? "true" : "false";
 
   buildBank.forEach((word, i) => {
     const chip = document.createElement("button");
@@ -1110,35 +1110,29 @@ function renderBuildBankAndAnswer(item) {
       chip.addEventListener("click", () => {
         buildAnswer.push(i);
         renderBuildBankAndAnswer(item);
-        document.getElementById("build-check").disabled = buildAnswer.length === 0;
+        document.getElementById("build-check").disabled = buildAnswer.length !== buildBank.length;
       });
     }
     bankEl.appendChild(chip);
   });
 
-  if (buildAnswer.length === 0) {
-    placeholder.style.display = "";
-    answerEl.appendChild(placeholder);
-  } else {
-    placeholder.style.display = "none";
-    buildAnswer.forEach((bankIdx, pos) => {
-      const chip = document.createElement("button");
-      chip.className = "answer-chip";
-      chip.textContent = buildBank[bankIdx];
-      chip.addEventListener("click", () => {
-        buildAnswer.splice(pos, 1);
-        renderBuildBankAndAnswer(item);
-        document.getElementById("build-check").disabled = buildAnswer.length === 0;
-      });
-      answerEl.appendChild(chip);
+  buildAnswer.forEach((bankIdx, pos) => {
+    const chip = document.createElement("button");
+    chip.className = "answer-chip";
+    chip.textContent = buildBank[bankIdx];
+    chip.addEventListener("click", () => {
+      buildAnswer.splice(pos, 1);
+      renderBuildBankAndAnswer(item);
+      document.getElementById("build-check").disabled = buildAnswer.length !== buildBank.length;
     });
-  }
+    answerEl.appendChild(chip);
+  });
 }
 
 document.getElementById("build-check").addEventListener("click", () => {
   const item = buildItems[buildIdx];
   const userAns = buildAnswer.map(i => buildBank[i]).join(" ");
-  const correct = userAns === item.words.join(" ");
+  const correct = userAns.toLowerCase() === item.words.join(" ").toLowerCase();
   if (correct) buildScore++;
   qResults.push({ item: { en: item.jp, emoji:"🧩" }, correct, chosen: userAns });
 
