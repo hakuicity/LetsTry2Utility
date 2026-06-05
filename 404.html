@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Let's Try 2 練習</title>
+  <script>
+    // GitHub Pages SPA redirect: preserve path as query string
+    const l = window.location;
+    l.replace(l.protocol + '//' + l.host + l.pathname.split('/').slice(0, 1).join('/') +
+      '/?/' + l.pathname.slice(1) + (l.search ? '&' + l.search.slice(1) : '') + l.hash);
+  </script>
+</head>
+<body></body>
+</html>
